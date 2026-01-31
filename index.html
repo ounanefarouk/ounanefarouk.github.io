@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mohamed El Farouk Ounane - Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- Chart.js for radar charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    html {
+    scroll-behavior: smooth;
+}
+        /* Custom CSS */
+        :root {
+            --dark-bg: #1a1a1a;
+            --light-text: #f8f9fa;
+            --accent-color: #444;
+        }
+
+        body {
+            color: #444;
+            font-family: "Raleway", Georgia, Palatino, serif;
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 0;
+            background: #fefefe;
+            max-width: 100vw;
+        }
+
+        .portfolio-link {
+            display: block;
+            text-decoration: none;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link:focus {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Profile section */
+        .profile-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .profile-title {
+            font-size: 1em;
+            color: #ccc;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Social media links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Main content area */
+        .main-content {
+            margin-left: 300px;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        /* Section headings */
+        .section-heading {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid var(--dark-bg);
+            padding-bottom: 10px;
+        }
+
+        /* Radar chart styling */
+        .skill-chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .skill-chart {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-bg);
+        }
+
+        /* Image hover effects */
+        .portfolio-image {
+            margin-bottom: 15px;
+            opacity: 0.9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1);
+            position: relative;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .portfolio-image:hover {
+            opacity: 1;
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        /* Contact form styling */
+        .form-control {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: var(--dark-bg);
+            box-shadow: 0 0 0 0.25rem rgba(26, 26, 26, 0.25);
+        }
+
+        .btn-dark {
+            background-color: var(--dark-bg);
+            border-color: var(--dark-bg);
+        }
+
+        .btn-dark:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #ccc;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-photo {
+                width: 100px;
+                height: 100px;
+            }
+            .modal-dialog {
+                margin: 0;
+                max-width: 100%;
+                height: 100%;
+            }
+
+            .modal-content {
+                height: 100%;
+                border-radius: 0;
+            }
+
+
+        }
+
+        @media (max-width: 768px) {
+            #modal-content-container {
+                overflow: auto;
+                max-height: 60vh;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+    <div class="profile-container">
+        <img src="28aaa3e7-dc4f-44f1-85dc-59af187de67d.jpeg" class="profile-photo" alt="Mohamed El Farouk Ounane">
+        <div class="profile-name">Mohamed El Farouk Ounane</div>
+        <div class="profile-title">Mathematician & Algorithm Developer</div>
+    </div>
+
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#portfolio">PORTFOLIO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#about">ABOUT ME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#publications">PUBLICATIONS</a>
+        </li>
+    </ul>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/mohamed-el-farouk-ounane-071821a6/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/farouk-ounane" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/dreams_of_sisyphus/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:mohamed.ounane@univ-sba.dz" title="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Portfolio section -->
+    <section id="portfolio" class="mb-5">
+        <h4 class="section-heading">PORTFOLIO</h4>
+        <!-- In your portfolio section, replace the images with links -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <a href="flowers.html" class="portfolio-link">
+                    <img src="flower.gif" class="portfolio-image" alt="Procedural SDF Flowers">
+                </a>
+                <a href="snake.html" class="portfolio-link">
+                    <img src="snake.gif" class="portfolio-image" alt="Snake Auto-Play">
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="heart.html" class="portfolio-link">
+                    <img src="heart.gif" class="portfolio-image" alt="Heart's Eye">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About section -->
+    <section id="about" class="mb-5 p-4 bg-light rounded">
+        <h4 class="section-heading">ABOUT ME</h4>
+        <div class="container">
+            <p>I am a mathematician and creative coder with a strong background in differential geometry, partial differential equations, numerical methods, computational geometry and computer graphics. </p>
+            <p> Skilled in bridging mathematical theory with practical implementations, simulations, and creative coding. I am passionate about tackling challenging problems, optimizing algorithms, and delivering innovative solutions in a collaborative environment.</p>
+            <p> We are now in 2025, I have almost completed my Ph.D in Mathematics and I am looking for new opportunities. </p>
+            <h5 class="mt-4 mb-3">Technical Skills</h5>
+            <div class="skill-chart-container">
+                <!-- Programming Skills Radar Chart -->
+                <div class="skill-chart">
+                    <div class="chart-title">Programming</div>
+                    <canvas id="programmingChart"></canvas>
+                </div>
+                <!-- Mathematics Skills Radar Chart -->
+                <div class="skill-chart">
+                    <div class="chart-title">Mathematics</div>
+                    <canvas id="mathChart"></canvas>
+                </div>
+            </div>
+            <a href="./resume_farouk.pdf" class="btn btn-dark mt-3" download>
+                <i class="fas fa-download me-2"></i> Download Resume
+            </a>
+        </div>
+    </section>
+
+    <!-- Publications section -->
+    <section id="publications" class="mb-5">
+        <h4 class="section-heading">PUBLICATIONS</h4>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="p-3 border rounded">
+                    <h5>Multiplicity of Solutions for an Elliptic Problem Involving GJMS Operator</h5>
+                    <p class="text-muted">2024, Filomat, Volume 38, Issue 5</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-3 border rounded">
+                    <h5>Existence and Uniqueness Results for a Singular Kirchhoff Type Equation on a Closed Manifold</h5>
+                    <p class="text-muted">2024, Differential Geometry and its Applications, Volume 93</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-5">
+        <p>Mohamed El Farouk Ounane &copy; 2024 | Powered by Bootstrap</p>
+    </footer>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Initialize radar charts after the DOM loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Common chart options
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true,
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: {
+                        stepSize: 20,
+                        backdropColor: 'transparent',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    pointLabels: {
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        };
+
+        // Programming Skills Chart
+        const programmingCtx = document.getElementById('programmingChart').getContext('2d');
+        const programmingChart = new Chart(programmingCtx, {
+            type: 'radar',
+            data: {
+                labels: ['C/C++', 'Python', 'JavaScript', 'GLSL', 'MATLAB'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [85, 85, 65, 80, 60],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                    pointRadius: 4,
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+
+        // Mathematics Skills Chart
+        const mathCtx = document.getElementById('mathChart').getContext('2d');
+        const mathChart = new Chart(mathCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Symplectic Geometry', 'Riemannian Geometry', 'PDEs', 'Numerical Methods', 'Other'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [70, 70, 80, 80, 60],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                    pointRadius: 4,
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+
+        // Force both charts to have the same size
+        function resizeCharts() {
+            const charts = [programmingChart, mathChart];
+            const maxWidth = Math.max(
+                ...charts.map(chart => chart.width)
+            );
+            const maxHeight = Math.max(
+                ...charts.map(chart => chart.height)
+            );
+
+            charts.forEach(chart => {
+                chart.canvas.style.width = maxWidth + 'px';
+                chart.canvas.style.height = maxHeight + 'px';
+                chart.resize();
+            });
+        }
+
+        // Initial resize
+        setTimeout(resizeCharts, 100);
+
+        // Resize on window resize
+        window.addEventListener('resize', resizeCharts);
+    });
+</script>
+</body>
+</html>

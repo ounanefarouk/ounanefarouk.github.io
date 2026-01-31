@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mohamed El Farouk Ounane - Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        /* Custom CSS */
+        :root {
+            --dark-bg: #1a1a1a;
+            --light-text: #f8f9fa;
+            --accent-color: #444;
+        }
+
+        body {
+            color: #444;
+            font-family: "Raleway", Georgia, Palatino, serif;
+            font-size: 16px;
+            line-height: 1.7;
+            margin: 0;
+            background: #fefefe;
+            max-width: 100vw;
+        }
+
+
+        .portfolio-link {
+          display: block;
+          text-decoration: none;
+       }
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link {
+            color: var(--light-text);
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link:focus {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Profile section */
+        .profile-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .profile-title {
+            font-size: 1em;
+            color: #ccc;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Social media links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Main content area */
+        .main-content {
+            margin-left: 300px;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        /* Section headings */
+        .section-heading {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid var(--dark-bg);
+            padding-bottom: 10px;
+        }
+
+        /* Skill bars */
+        .skill-bar {
+            height: 25px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            font-size: 0.8em;
+        }
+
+        /* Image hover effects */
+        .portfolio-image {
+            margin-bottom: 15px;
+            opacity: 0.9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1);
+            position: relative;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .portfolio-image:hover {
+            opacity: 1;
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        /* Contact form styling */
+        .form-control {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: var(--dark-bg);
+            box-shadow: 0 0 0 0.25rem rgba(26, 26, 26, 0.25);
+        }
+
+        .btn-dark {
+            background-color: var(--dark-bg);
+            border-color: var(--dark-bg);
+        }
+
+        .btn-dark:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #ccc;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        /* Main content area */
+        .main-content {
+            margin-left: 300px;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        /* Sketch container */
+        .sketch-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        #sketch {
+            flex: 1;
+            min-width: 560px;
+            height: 560px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .sketch-controls {
+            flex: 0 0 300px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .sketch-description {
+            flex: 1 1 100%;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .control-button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .control-button:hover {
+            background: #555;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sketch-container {
+                flex-direction: column;
+            }
+
+            #sketch {
+                min-width: 100%;
+                height: auto;
+                aspect-ratio: 1/1;
+            }
+
+            canvas {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            .sketch-controls {
+                order: 2;
+                flex: 1 1 100%;
+            }
+
+            .sketch-description {
+                order: 3;
+            }
+
+            .control-group {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            #sketch {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+    <div class="profile-container">
+        <img src="28aaa3e7-dc4f-44f1-85dc-59af187de67d.jpeg" class="profile-photo" alt="Mohamed El Farouk Ounane">
+        <div class="profile-name">Mohamed El Farouk Ounane</div>
+        <div class="profile-title">Mathematician & Algorithm Developer</div>
+    </div>
+
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="./index.html#portfolio">PORTFOLIO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="./index.html#about">ABOUT ME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="./index.html#publications">PUBLICATIONS</a>
+        </li>
+    </ul>
+
+    <!-- Social Media Links -->
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/mohamed-el-farouk-ounane-071821a6/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/farouk-ounane" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/faro.uk8018/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:mohamed.ounane@univ-sba.dz" title="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="main-content">
+    <section class="mb-5">
+        <h4 class="section-heading">Ray-Marched Procedural Flowers</h4>
+
+        <div class="sketch-container">
+            <div id="sketch"></div>
+
+            <div class="sketch-controls">
+
+                <div class="control-group">
+                  <label for="flowerColor">Flower Color</label>
+                  <input type="color" id="flowerColor" value="#ff1493" class="control-color">
+                </div>
+
+                <div class="control-group">
+                    <label for="Camelia">Camelia</label>
+                    <input type="range" id="Camelia" min="0" max="500" value="500" class="form-range">
+                </div>
+
+                <div class="control-group">
+                    <label for="Lotus">Lotus</label>
+                    <input type="range" id="Lotus" min="0" max="500" value="500" class="form-range">
+                </div>
+
+                <div class="control-group">
+                    <label for="Dahlia">Dahlia</label>
+                    <input type="range" id="Dahlia" min="0" max="500" value="500" class="form-range">
+                </div>
+
+            </div>
+
+            <div class="sketch-description">
+                <h5>Interactive Procedural Flowers</h5>
+                <p>This interactive visualization features a 3D Flower Proceduraly generated through a Signed distance Function then displayed using ray-marching within the fragment shader.</p>
+                <p><strong>Interactions:</strong></p>
+                <ul>
+                    <li>Drag to rotate the Flower</li>
+                    <li>Use sliders to interpolate between the three flowers : Camelia, Lotus and Dahlia.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-5">
+        <p>Mohamed El Farouk Ounane &copy; 2024 | Powered by Bootstrap</p>
+    </footer>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="bloom.js"></script>
+
+<script>
+// Connect HTML controls to p5 sketch
+document.addEventListener('DOMContentLoaded', function() {
+    const colorPicker = document.getElementById('flowerColor');
+    const CameliaSlider = document.getElementById('Camelia');
+    const LotusSlider = document.getElementById('Lotus');
+    const DahliaSlider = document.getElementById('Dahlia');
+
+    if (window.setFlowerColor) {
+    colorPicker.addEventListener('input', function() {
+        window.setFlowerColor(this.value);
+    });
+    }
+
+    if (window.setCamelia) {
+        CameliaSlider.addEventListener('input', function() {
+            window.setCamelia(this.value);
+        });
+
+        LotusSlider.addEventListener('input', function() {
+            window.setLotus(this.value);
+        });
+
+        DahliaSlider.addEventListener('input', function() {
+            window.setDahlia(this.value);
+        });
+
+
+    }
+    });
+
+</script>
+</body>
+</html>
